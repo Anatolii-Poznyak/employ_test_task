@@ -10,3 +10,4 @@ def index(request):
 
 class EmployeeListView(generic.ListView):
     model = Employee
+    queryset = Employee.objects.all().select_related("position")
