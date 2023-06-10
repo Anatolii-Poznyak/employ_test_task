@@ -11,7 +11,7 @@ class Position(models.Model):
 
 class Employee(AbstractUser):
     middle_name = models.CharField(max_length=63)
-    hired = models.DateField()
+    hired = models.DateField(null=True, blank=True)
     position = models.ForeignKey(
         to=Position,
         on_delete=models.SET_NULL,
