@@ -23,7 +23,7 @@ class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
 
 class EmployeeCreateView(LoginRequiredMixin, generic.CreateView):
     model = Employee
-    success_url = reverse_lazy("employees_structure:employee-detail")
+    success_url = reverse_lazy("employees_structure:employee-list")
     template_name = "employees_structure/employee_form.html"
     fields = [
         "username",
@@ -42,3 +42,18 @@ class EmployeeCreateView(LoginRequiredMixin, generic.CreateView):
         form.fields["hired"].widget = DateInput(attrs={"type": "date"})
         form.fields["password"].widget = PasswordInput()
         return form
+
+
+class EmployeeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Employee
+    fields = "__all__"
+    success_url = reverse_lazy("employees_structure:employee-list")
+    template_name = "employees_structure/employee_form.html"
+
+
+class EmployeeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Employee
+    fields = "__all__"
+    success_url = reverse_lazy("employees_structure:employee-list")
+    template_name = "employees_structure/employee_delete.html"
+
