@@ -20,7 +20,7 @@ class Employee(AbstractUser):
         blank=True
     )
     manager = models.ForeignKey(
-        "self",
+        to="self",
         on_delete=models.SET_NULL,
         null=True,
         blank=True
