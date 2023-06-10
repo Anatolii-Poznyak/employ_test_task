@@ -11,6 +11,7 @@ def index(request):
 class EmployeeListView(generic.ListView):
     model = Employee
     queryset = Employee.objects.all().select_related("position")
+    paginate_by = 30
 
 
 class EmployeeDetailView(generic.DetailView):
