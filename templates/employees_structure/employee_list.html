@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Employees list</h1>
+  {% if employee_list %}
+    <ul>
+      {% for employee in employee_list %}
+        <li>{{ employee.last_name }} {{ employee.first_name }} {{ employee.middle_name }} : {{ employee.position.name }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no employees yet!</p>
+  {% endif %}
+{% endblock %}
