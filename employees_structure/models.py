@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 
 
 class Position(models.Model):
@@ -25,6 +26,9 @@ class Employee(AbstractUser):
         null=True,
         blank=True
     )
+
+    def get_absolute_url(self):
+        return reverse("employees_structure:employee-detail", args=[str(self.id)])
 
     def __str__(self):
         return f"{self.last_name} {self.first_name} {self.middle_name}"
