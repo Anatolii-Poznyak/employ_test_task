@@ -3,7 +3,8 @@ from .views import index, EmployeeListView
 
 urlpatterns = [
     path("", index, name="index"),
-    path("employees/", EmployeeListView.as_view(), name="employee-list")
+    path("employees/", EmployeeListView.as_view(), name="employee-list"),
+
 ]
 
 app_name = "employees_structure"
