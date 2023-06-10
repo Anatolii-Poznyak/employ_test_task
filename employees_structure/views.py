@@ -1,6 +1,9 @@
 from django.views import generic
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.forms.widgets import DateInput, PasswordInput
+
 from .models import Employee
 
 
@@ -14,5 +17,28 @@ class EmployeeListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 30
 
 
-class EmployeeDetailView(generic.DetailView):
+class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Employee
+
+
+class EmployeeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Employee
+    success_url = reverse_lazy("employees_structure:employee-detail")
+    template_name = "employees_structure/employee_form.html"
+    fields = [
+        "username",
+        "password",
+        "last_name",
+        "first_name",
+        "middle_name",
+        "hired",
+        "email",
+        "position",
+        "manager",
+    ]
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["hired"].widget = DateInput(attrs={"type": "date"})
+        form.fields["password"].widget = PasswordInput()
+        return form

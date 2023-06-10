@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Employees list</h1>
+  <h1>Employees list
+  <a style="float: right" href="{% url 'employees_structure:employee-create' %}">+</a>
+  </h1>
+
   {% if employee_list %}
     <ul>
       {% for employee in employee_list %}
