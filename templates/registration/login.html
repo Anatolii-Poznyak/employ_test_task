@@ -10,15 +10,14 @@
 <h1>Login</h1>
 
 {% if next %}
-  <p>Please login to see this page.</p>
+  <p style="color: red">Please login to see this page.</p>
 {% endif %}
 
 <form method="post" action="{% url 'login' %}">
   {% csrf_token %}
+  {{ form.as_p }}
   <input type="submit" value="Login" class="btn btn-outline-primary" />
-  {% if not user %}
-    <input type="hidden" name="next" value="{{ next }}" />
-  {% endif %}
+  <input type="hidden" name="next" value="{{ next }}" />
 
 </form>
 
