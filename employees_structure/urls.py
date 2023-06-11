@@ -11,7 +11,6 @@ urlpatterns = [
     path("employees/<int:pk>/delete/", EmployeeDeleteView.as_view(), name="employee-delete"),
     path("employees/<int:pk>/transfer-subordinates/", TransferSubordinatesView.as_view(), name="transfer-subordinates"),
 
-
 ]
 
 app_name = "employees_structure"

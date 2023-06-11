@@ -8,6 +8,8 @@ from django.db.models.functions import Concat, Cast
 from .forms import EmployeeCreationForm, EmployeeUpdateForm, EmployeeSearchForm, TransferSubordinatesForm
 from .models import Employee
 from django.contrib import messages
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 
 def index(request):

@@ -48,19 +48,6 @@ class EmployeeSearchForm(forms.Form):
         widget=forms.TextInput(attrs={"placeholder": "Search employees ..."})
     )
 
-class AuthorWidget(ModelSelect2Widget):
-    search_fields = [
-        "username__icontains",
-        "email__icontains",
-    ]
-
-
-class CoAuthorsWidget(ModelSelect2MultipleWidget):
-    search_fields = [
-        "username__icontains",
-        "email__icontains",
-    ]
-
 
 class TransferSubordinatesForm(forms.Form):
     new_manager = forms.ModelChoiceField(
