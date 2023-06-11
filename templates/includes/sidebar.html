@@ -5,6 +5,9 @@
   {% else %}
     <li class="list-group-item"><a href="{% url 'login' %}">Login</a></li>
   {% endif %}
+
+  <br>
+
   <li class="list-group-item"><a href="{% url 'employees_structure:index' %}">Home</a></li>
   <li class="list-group-item"><a href="{% url 'employees_structure:employee-list' %}">Employees</a></li>
   <li class="list-group-item"><a href="#">Hierarchy</a></li>
