@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "crispy_forms",
     "crispy_bootstrap4",
+    "django_select2",
     "employees_structure",
 ]
 
@@ -81,6 +82,12 @@ TEMPLATES = [
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 WSGI_APPLICATION = "config.wsgi.application"
+
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 
 # Database

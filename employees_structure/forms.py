@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Employee
 from django.forms.widgets import DateInput
 from django import forms
+from django_select2.forms import Select2Widget, ModelSelect2Widget, ModelSelect2MultipleWidget
 
 
 class BaseEmployeeForm(forms.ModelForm):
@@ -47,14 +48,29 @@ class EmployeeSearchForm(forms.Form):
         widget=forms.TextInput(attrs={"placeholder": "Search employees ..."})
     )
 
+class AuthorWidget(ModelSelect2Widget):
+    search_fields = [
+        "username__icontains",
+        "email__icontains",
+    ]
+
+
+class CoAuthorsWidget(ModelSelect2MultipleWidget):
+    search_fields = [
+        "username__icontains",
+        "email__icontains",
+    ]
+
 
 class TransferSubordinatesForm(forms.Form):
     new_manager = forms.ModelChoiceField(
         queryset=Employee.objects.all(),
         label="Новий менеджер ",
-        widget=forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'})
+        widget=Select2Widget(attrs={"data-minimum-input-length": 0})
     )
 
     def __init__(self, *args, **kwargs):
         self.employee = kwargs.pop("employee", None)
         super().__init__(*args, **kwargs)
+
+
