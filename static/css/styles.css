@@ -11,3 +11,9 @@ body {
     justify-content: center;
     align-items: center;
 }
+.alert-with-margin {
+    margin-top: 10px;
+}
+.form-margin {
+    margin-top: 10px;
+}

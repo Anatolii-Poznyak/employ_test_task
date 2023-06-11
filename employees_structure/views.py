@@ -1,12 +1,13 @@
 from django.views import generic
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.forms.widgets import DateInput, PasswordInput
 from django.db.models import Q, CharField, Value
 from django.db.models.functions import Concat, Cast
-from .forms import EmployeeCreationForm, EmployeeUpdateForm, EmployeeSearchForm
+from .forms import EmployeeCreationForm, EmployeeUpdateForm, EmployeeSearchForm, TransferSubordinatesForm
 from .models import Employee
+from django.contrib import messages
 
 
 def index(request):
@@ -53,6 +54,11 @@ class EmployeeListView(LoginRequiredMixin, generic.ListView):
 class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Employee
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['transfer_form'] = TransferSubordinatesForm(employee=self.object)
+        return context
+
 
 class EmployeeCreateView(LoginRequiredMixin, generic.CreateView):
     model = Employee
@@ -70,3 +76,14 @@ class EmployeeDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("employees_structure:employee-list")
     template_name = "employees_structure/employee_delete.html"
 
+
+class TransferSubordinatesView(LoginRequiredMixin, generic.View):
+
+    def post(self, request, *args, **kwargs):
+        form = TransferSubordinatesForm(request.POST, employee=get_object_or_404(Employee, pk=self.kwargs.get("pk")))
+        if form.is_valid():
+            new_manager = form.cleaned_data['new_manager']
+            employee = form.employee
+            employee.transfer_subordinates(new_manager)
+            messages.success(request, "Підлеглі були успішно передані.")
+        return redirect('employees_structure:employee-detail', pk=employee.id)

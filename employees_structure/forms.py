@@ -26,7 +26,17 @@ class EmployeeCreationForm(BaseEmployeeForm, UserCreationForm):
 
 
 class EmployeeUpdateForm(BaseEmployeeForm):
-    pass
+    def save(self, commit=True):
+        # Save the form first to get the new manager
+        employee = super().save(commit=commit)
+
+        if commit:
+            # Get all employees who report to this employee
+            subordinates = Employee.objects.filter(manager=employee)
+            # Change their manager to the new manager of this employee
+            subordinates.update(manager=employee.manager)
+
+        return employee
 
 
 class EmployeeSearchForm(forms.Form):
@@ -36,3 +46,15 @@ class EmployeeSearchForm(forms.Form):
         label="",
         widget=forms.TextInput(attrs={"placeholder": "Search employees ..."})
     )
+
+
+class TransferSubordinatesForm(forms.Form):
+    new_manager = forms.ModelChoiceField(
+        queryset=Employee.objects.all(),
+        label="Новий менеджер ",
+        widget=forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'})
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.employee = kwargs.pop("employee", None)
+        super().__init__(*args, **kwargs)
