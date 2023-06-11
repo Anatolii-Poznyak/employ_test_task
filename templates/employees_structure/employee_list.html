@@ -6,13 +6,13 @@
     Employees list
     <a style="float: right" href="{% url 'employees_structure:employee-create' %}"><i class="fas fa-user-plus"></i></a>
   </h1>
-  <form  action="" method="get">
+  <form  id="search-form" method="get">
     {{ search_form|crispy }}
-    <input id="searchform" type="submit" value="Search" class="btn btn-outline-primary" >
+    <input id="search-button" type="submit" value="Search" class="btn btn-outline-primary" >
   </form>
 
   {% if employee_list %}
-    <table class="table">
+    <table id="employee-table" class="table">
       <tr>
         <th data-sort-field="id">ID</th>
         <th>ПІБ</th>
