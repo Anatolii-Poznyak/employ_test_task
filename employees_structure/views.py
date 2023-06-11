@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.forms.widgets import DateInput, PasswordInput
-
+from django.db.models import Q, CharField, Value
+from django.db.models.functions import Concat, Cast
 from .forms import EmployeeCreationForm, EmployeeUpdateForm, EmployeeSearchForm
 from .models import Employee
 
@@ -30,11 +31,24 @@ class EmployeeListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         form = EmployeeSearchForm(self.request.GET)
+        queryset = self.queryset.annotate(
+            hired_str=Cast("hired", CharField(max_length=63))
+        )
 
-        if form.is_valid():
-            return self.queryset.filter(first_name__icontains=form.cleaned_data["employee"])
-
-        return self.queryset
+        if form.is_valid() and form.cleaned_data["employee"]:
+            query = form.cleaned_data["employee"]
+            queryset = queryset.filter(
+                Q(first_name__icontains=query) |
+                Q(last_name__icontains=query) |
+                Q(middle_name__icontains=query) |
+                Q(email__icontains=query) |
+                Q(position__name__icontains=query) |
+                Q(manager__first_name__icontains=query) |
+                Q(manager__last_name__icontains=query) |
+                Q(manager__middle_name__icontains=query) |
+                Q(hired_str__icontains=query)
+            )
+        return queryset
 
 
 class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
