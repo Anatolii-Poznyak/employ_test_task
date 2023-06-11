@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.forms.widgets import DateInput, PasswordInput
 
+from .forms import EmployeeCreationForm, EmployeeUpdateForm
 from .models import Employee
 
 
@@ -23,38 +24,12 @@ class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
 
 class EmployeeCreateView(LoginRequiredMixin, generic.CreateView):
     model = Employee
-    success_url = reverse_lazy("employees_structure:employee-list")
-    template_name = "employees_structure/employee_form.html"
-    fields = [
-        "username",
-        "password",
-        "last_name",
-        "first_name",
-        "middle_name",
-        "hired",
-        "email",
-        "position",
-        "manager",
-    ]
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields["hired"].widget = DateInput(attrs={"type": "date"})
-        form.fields["password"].widget = PasswordInput()
-        return form
+    form_class = EmployeeCreationForm
 
 
 class EmployeeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Employee
-    fields = "__all__"
-    success_url = reverse_lazy("employees_structure:employee-list")
-    template_name = "employees_structure/employee_form.html"
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields["hired"].widget = DateInput(attrs={"type": "date"})
-        form.fields["password"].widget = PasswordInput()
-        return form
+    form_class = EmployeeUpdateForm
 
 
 class EmployeeDeleteView(LoginRequiredMixin, generic.DeleteView):
