@@ -27,3 +27,12 @@ class EmployeeCreationForm(BaseEmployeeForm, UserCreationForm):
 
 class EmployeeUpdateForm(BaseEmployeeForm):
     pass
+
+
+class EmployeeSearchForm(forms.Form):
+    employee = forms.CharField(
+        max_length=63,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search employees ..."})
+    )
