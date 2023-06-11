@@ -15,8 +15,7 @@ def index(request):
 
 class EmployeeListView(LoginRequiredMixin, generic.ListView):
     model = Employee
-    queryset = Employee.objects.all().select_related("position")
-    paginate_by = 1
+    paginate_by = 20
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
@@ -31,7 +30,7 @@ class EmployeeListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         form = EmployeeSearchForm(self.request.GET)
-        queryset = self.queryset.annotate(
+        queryset = Employee.objects.select_related("position").annotate(
             hired_str=Cast("hired", CharField(max_length=63))
         )
 
