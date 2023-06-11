@@ -50,6 +50,12 @@ class EmployeeUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("employees_structure:employee-list")
     template_name = "employees_structure/employee_form.html"
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["hired"].widget = DateInput(attrs={"type": "date"})
+        form.fields["password"].widget = PasswordInput()
+        return form
+
 
 class EmployeeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Employee

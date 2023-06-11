@@ -1,17 +1,43 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>Employees list
-  <a style="float: right" href="{% url 'employees_structure:employee-create' %}">+</a>
+  <h1>
+    Employees list
+    <a style="float: right" href="{% url 'employees_structure:employee-create' %}">+</a>
   </h1>
+  <form  action="" method="get">
+    {{ search_form|crispy }}
+    <input id="searchform" type="submit" value="Search" class="btn btn-outline-primary" >
+  </form>
 
   {% if employee_list %}
-    <ul>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>ПІБ</th>
+        <th>Посада</th>
+        <th>Начальник</th>
+        <th>Email</th>
+        <th>Дата найму</th>
+        <th>Редагувати</th>
+        <th>Видалити</th>
+      </tr>
       {% for employee in employee_list %}
-        <li><a href="{{ employee.get_absolute_url }}">{{ employee.last_name }} {{ employee.first_name }} {{ employee.middle_name }}</a> : {{ employee.position.name }} || hired : {{ employee.hired }} || {{ employee.email }}</li>
+        <tr>
+          <td>{{ employee.id }}</td>
+          <td><a href="{{ employee.get_absolute_url }}">{{ employee.last_name }} {{ employee.first_name }} {{ employee.middle_name }} {% if user == employee %} (Я) {% endif %}</a></td>
+          <td>{{ employee.position }}</td>
+          <td><a href="{{ employee.manager.get_absolute_url }}">{{ employee.manager }}</a></td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.hired }}</td>
+          <td><div class="icon-center"><a href="{% url 'employees_structure:employee-update' pk=employee.id %}"><i class="fas fa-pencil-alt"></i></a></div></td>
+          <td><div class="icon-center"><a href="{% url 'employees_structure:employee-delete' pk=employee.id %}"><i class="fas fa-trash-alt"></i></a></div></td>
+        </tr>
       {% endfor %}
-    </ul>
+    </table>
   {% else %}
     <p>There are no employees yet!</p>
   {% endif %}
+
 {% endblock %}
