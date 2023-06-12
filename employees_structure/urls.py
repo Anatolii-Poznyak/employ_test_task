@@ -10,7 +10,8 @@ urlpatterns = [
     path("employees/<int:pk>/delete/", EmployeeDeleteView.as_view(), name="employee-delete"),
     path("employees/<int:pk>/transfer-subordinates/", TransferSubordinatesView.as_view(), name="transfer-subordinates"),
     path('toggle_subordinates/<int:employee_id>/', toggle_subordinates, name='toggle_subordinates'),
-    path("employees/<str:model>/<str:sort_by>/<str:direction>/", EmployeeListView.as_view(), name="employee-list-sort"),
+    path("employees/<str:sort_by>/<str:direction>/", EmployeeListView.as_view(), name="employee-list-sort"),
+    path("employees/<str:model>/<str:sort_by>/<str:direction>/", EmployeeListView.as_view(), name="manager-list-sort"),
 
 
 ]

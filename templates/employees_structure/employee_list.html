@@ -13,12 +13,12 @@
   {% if employee_list %}
     <table id="employee-table" class="table">
       <tr>
-        <th data-sort-field="id">ID</th>
-        <th>ПІБ</th>
-        <th>Посада</th>
-        <th>Начальник <a href="{% url 'employees_structure:employee-list-sort' 'manager' 'first_name' 'asc' %}">🔼 </a> <a href="{% url 'employees_structure:employee-list-sort' 'manager' 'first_name' 'desc' %}">🔽</a></th>
-        <th>Email</th>
-        <th>Дата найму</th>
+        <th data-sort-field="id">ID <a href="{% url 'employees_structure:employee-list-sort' 'id' 'asc' %}">🔼 </a> <a href="{% url 'employees_structure:employee-list-sort' 'id' 'desc' %}">🔽</a></th>
+        <th>ПІБ <a href="{% url 'employees_structure:employee-list-sort' 'last_name' 'asc' %}">🔼 </a> <a href="{% url 'employees_structure:employee-list-sort' 'last_name' 'desc' %}">🔽</a></th>
+        <th>Посада <a href="{% url 'employees_structure:employee-list-sort' 'position' 'asc' %}">🔼 </a> <a href="{% url 'employees_structure:employee-list-sort' 'position' 'desc' %}">🔽</a></th>
+        <th>Начальник <a href="{% url 'employees_structure:manager-list-sort' 'manager' 'first_name' 'asc' %}">🔼 </a> <a href="{% url 'employees_structure:manager-list-sort' 'manager' 'first_name' 'desc' %}">🔽</a></th>
+        <th>Email <a href="{% url 'employees_structure:employee-list-sort' 'email' 'asc' %}">🔼 </a> <a href="{% url 'employees_structure:employee-list-sort' 'email' 'desc' %}">🔽</a></th>
+        <th>Дата найму <a href="{% url 'employees_structure:employee-list-sort' 'hired' 'desc' %}">🔼 </a> <a href="{% url 'employees_structure:employee-list-sort' 'hired' 'asc' %}">🔽</a></th>
         <th>Редагувати</th>
         <th>Видалити</th>
       </tr>
