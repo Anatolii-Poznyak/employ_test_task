@@ -67,3 +67,16 @@ class EmployeeModelTest(TestCase):
         self.assertEqual(subordinates.count(), 2)
         self.assertTrue(Employee.objects.get(username="subordinate1") in subordinates)
         self.assertTrue(Employee.objects.get(username="subordinate2") in subordinates)
+
+    def test_transfer_subordinates(self):
+        manager1 = Employee.objects.get(username="manager")
+        manager2 = Employee.objects.get(username="other")
+
+        manager1.transfer_subordinates(manager2)
+
+        self.assertEqual(manager1.get_subordinates().count(), 0)
+
+        subordinates = manager2.get_subordinates()
+        self.assertEqual(subordinates.count(), 2)
+        self.assertTrue(Employee.objects.get(username="subordinate1") in subordinates)
+        self.assertTrue(Employee.objects.get(username="subordinate2") in subordinates)
