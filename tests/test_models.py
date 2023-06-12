@@ -23,6 +23,24 @@ class EmployeeModelTest(TestCase):
     def setUpTestData(cls):
         test_position = Position.objects.create(name="TestPosition")
         Employee.objects.create(middle_name="TestMiddle", position=test_position)
+        manager = Employee.objects.create(
+            username="manager", middle_name="TestManager", position=test_position
+        )
+        Employee.objects.create(
+            username="subordinate1",
+            middle_name="TestSubordinate1",
+            position=test_position,
+            manager=manager,
+        )
+        Employee.objects.create(
+            username="subordinate2",
+            middle_name="TestSubordinate2",
+            position=test_position,
+            manager=manager,
+        )
+        Employee.objects.create(
+            username="other", middle_name="TestOther", position=test_position
+        )
 
     def test_employee_middle_name_label(self):
         employee = Employee.objects.get(id=1)
@@ -43,3 +61,9 @@ class EmployeeModelTest(TestCase):
         employee = Employee.objects.get(id=1)
         self.assertEquals(employee.get_absolute_url(), "/employees/1/")
 
+    def test_get_subordinates(self):
+        manager = Employee.objects.get(username="manager")
+        subordinates = manager.get_subordinates()
+        self.assertEqual(subordinates.count(), 2)
+        self.assertTrue(Employee.objects.get(username="subordinate1") in subordinates)
+        self.assertTrue(Employee.objects.get(username="subordinate2") in subordinates)
