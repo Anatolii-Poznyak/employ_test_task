@@ -36,7 +36,7 @@ class Command(BaseCommand):
 
         all_employees = list(Employee.objects.all())
         for i, employee in enumerate(all_employees[1:], 1):
-            manager = random.choice(all_employees[:max(1, int(i * 0.07))])  # limit management level
+            manager = random.choice(all_employees[:max(2, int(i * 0.07))])  # limit management level
             employee.manager = manager
         Employee.objects.bulk_update(all_employees, ['manager'])
 
