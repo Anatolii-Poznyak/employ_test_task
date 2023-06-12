@@ -34,7 +34,7 @@ for i, position_name in enumerate(positions_list):
 root_manager_pk = 1
 
 # Create Employees
-for i in range(1, 300):  # Start from 1 because root manager already exists
+for i in range(1, 1000):  # Start from 1 because root manager already exists
     # Track the manager for this employee
     if i % 10 == 0:
         root_manager_pk += 1
@@ -55,5 +55,5 @@ for i in range(1, 300):  # Start from 1 because root manager already exists
     }
     data.append(record)
 
-with open("employee_data.json", "w") as json_file:
+with open("../../../employee_data.json", "w") as json_file:
     json.dump(data, json_file)
