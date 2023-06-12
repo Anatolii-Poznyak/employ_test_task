@@ -16,7 +16,7 @@
         <th data-sort-field="id">ID</th>
         <th>ПІБ</th>
         <th>Посада</th>
-        <th>Начальник</th>
+        <th>Начальник <a href="{% url 'employees_structure:employee-list-sort' 'manager' 'first_name' 'asc' %}">🔼 </a> <a href="{% url 'employees_structure:employee-list-sort' 'manager' 'first_name' 'desc' %}">🔽</a></th>
         <th>Email</th>
         <th>Дата найму</th>
         <th>Редагувати</th>

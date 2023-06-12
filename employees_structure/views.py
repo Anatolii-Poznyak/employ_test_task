@@ -60,8 +60,16 @@ class EmployeeListView(LoginRequiredMixin, generic.ListView):
                 Q(manager__middle_name__icontains=query) |
                 Q(hired_str__icontains=query)
             )
-        return queryset
 
+        model = self.kwargs.get("model", None)
+        sort_by = self.kwargs.get("sort_by", None)
+        direction = self.kwargs.get("direction", None)
+        if model and sort_by:
+            sort_field = f"{model}__{sort_by}"
+            if direction == "desc":
+                sort_field = f"-{sort_field}"
+            queryset = queryset.order_by(sort_field)
+        return queryset
 
 class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Employee
