@@ -5,16 +5,19 @@ from faker import Faker
 faker = Faker()
 
 positions_list = [
-    "Contractor",
-    "Accountant",
-    "Games developer",
+    "CEO",
+    "Team Lead",
+    "Employee",
+    "Intern"
+    "Data Analyst",
     "Mechanical engineer",
-    "Media planner",
-    "Designer",
-    "Backend Developer",
-    "Frontend Developer",
+    "HR",
+    "UI Developer",
+    "UI/UX ",
+    "Backend Architect",
+    "Frontend Architect",
+    "Software Tester",
     "QA",
-    "Data processing manager"
 ]
 
 data = []
