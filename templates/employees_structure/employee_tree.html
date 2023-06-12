@@ -1,0 +1,12 @@
+<ul>
+    <li>
+        {{ employee.first_name }} {{ employee.last_name }}
+        {% if employee.get_subordinates %}
+            <ul>
+                {% for subordinate in employee.get_subordinates %}
+                    {% include "employees_structure/employee_tree.html" with employee=subordinate %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+</ul>

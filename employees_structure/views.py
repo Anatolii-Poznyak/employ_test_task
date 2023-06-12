@@ -8,19 +8,27 @@ from django.db.models.functions import Concat, Cast
 from .forms import EmployeeCreationForm, EmployeeUpdateForm, EmployeeSearchForm, TransferSubordinatesForm
 from .models import Employee
 from django.contrib import messages
-from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
+def get_employee_with_depth(employee, depth=0):
+    return {
+        'employee': employee,
+        'depth': depth,
+        'show_subordinates': employee.show_subordinates,
+        'subordinates': [get_employee_with_depth(e, depth + 1) for e in employee.employee_set.all() if employee.show_subordinates],
+    }
 
 def index(request):
-    return render(request, "employees_structure/index.html")
-
+    top_level_employees = Employee.objects.filter(manager__isnull=True)
+    employees = [get_employee_with_depth(e) for e in top_level_employees]
+    return render(request, "employees_structure/index.html", {'employees': employees})
 
 class EmployeeListView(LoginRequiredMixin, generic.ListView):
     model = Employee
-    paginate_by = 20
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
@@ -91,3 +99,20 @@ class TransferSubordinatesView(LoginRequiredMixin, generic.View):
             employee.transfer_subordinates(new_manager)
             messages.success(request, "Підлеглі були успішно передані.")
         return redirect('employees_structure:employee-detail', pk=employee.id)
+
+class EmployeeTreeView(LoginRequiredMixin, generic.ListView):
+    model = Employee
+    template_name = "employees_structure/employee_tree.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["employees"] = Employee.objects.filter(manager=None)
+        return context
+
+
+@csrf_exempt
+def toggle_subordinates(request, employee_id):
+    employee = Employee.objects.get(id=employee_id)
+    employee.show_subordinates = not employee.show_subordinates
+    employee.save()
+    return JsonResponse({'show_subordinates': employee.show_subordinates})
