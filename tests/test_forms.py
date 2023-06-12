@@ -1,11 +1,8 @@
-from unittest import mock
-
 from django.test import TestCase
 
 from employees_structure.forms import (
     BaseEmployeeForm,
     EmployeeCreationForm,
-    EmployeeUpdateForm,
     EmployeeSearchForm,
     TransferSubordinatesForm,
 )
