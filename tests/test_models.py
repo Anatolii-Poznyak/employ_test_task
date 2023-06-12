@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from employees_structure.models import Position, Employee
 
 

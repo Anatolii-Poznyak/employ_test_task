@@ -49,7 +49,6 @@ class EmployeeSearchForm(forms.Form):
     )
 
 
-
 class TransferSubordinatesForm(forms.Form):
     new_manager = forms.ModelChoiceField(
         queryset=Employee.objects.all(),
