@@ -36,13 +36,12 @@ source venv/bin/activate
 cp .env.sample .env
 ```
 
-- If you want to use docker - set POSTGRES_HOST=db
+- If you want to use docker - set POSTGRES_HOST=db 
 
 ## 🐳 Run with DOCKER
 - DOCKER should be installed
 
 ```shell
-  docker-compose build
   docker-compose up
 ```
 - server will run on 127.0.0.1:8000
@@ -51,10 +50,11 @@ cp .env.sample .env
 docker ps
 docker exec -it <your container name> /bin/bash
 python manage.py createsuperuser
+python manage.py loaddata employee_json
 ```
 - run tests -> `python manage.py test`
-- run script for create JSon with data -> `python DB_Seeder.py 1000 5` (first param - count of employees, second - level of inheritance)
-- it will rewrite employee_data.json (by default 50000 records in file)
+- run script for create JSon with data -> `python DB_Seeder.py 50000 5` if you want to create your specific test data (first param - count of employees, second - level of inheritance)
+- it will rewrite employee_data.json (by default 1000 records in file)
 - load data from created fixture to your db -> `python manage.py loaddata employee_data`
 
 
