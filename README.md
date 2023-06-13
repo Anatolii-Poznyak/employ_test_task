@@ -102,5 +102,5 @@ python manage.py loaddata employee_json
 
 ## 📚 Additional info
 - For testing: run tests -> `python manage.py test`
-- If you want to create your specific amount of test- data -> run script for create JSon with data -> `python DB_Seeder.py 300 2` (first param - count of employees, second - level of inheritance). It will rewrite employee_data.json (by default 1000 records in file)
+- If you want to create your specific amount of test- data -> run script for create JSon with data -> `python db_seeder.py 300 2` (first param - count of employees, second - level of inheritance). It will rewrite employee_data.json (by default 1000 records in file)
 - To load data from created fixture to your db -> `python manage.py loaddata employee_data`
