@@ -69,11 +69,11 @@ class EmployeeSearchFormTest(TestCase):
 class TransferSubordinatesFormTest(TestCase):
     def test_valid_data(self):
         position = Position.objects.create(name="position1")
-        employee1 = Employee.objects.create(username="employee1", position=position)
+        first_employee = Employee.objects.create(username="employee1", position=position)
         form = TransferSubordinatesForm(
             {
-                "new_manager": employee1.id,
+                "new_manager": first_employee.id,
             }
         )
         self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data["new_manager"], employee1)
+        self.assertEqual(form.cleaned_data["new_manager"], first_employee)

@@ -6,9 +6,9 @@ function toggleSubordinates(event, id) {
 
     if (subordinates.style.display === "none") {
         subordinates.style.display = "block";
-        toggleIcon.innerText = '-';
+        toggleIcon.innerText = "-";
     } else {
         subordinates.style.display = "none";
-        toggleIcon.innerText = '+';
+        toggleIcon.innerText = "+";
     }
 }

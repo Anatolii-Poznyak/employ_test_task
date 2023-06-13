@@ -19,7 +19,7 @@ class PositionModelTest(TestCase):
 class EmployeeModelTest(TestCase):
     def setUp(self):
         self.test_position = Position.objects.create(name="TestPosition")
-        self.employee1 = Employee.objects.create(middle_name="TestMiddle", position=self.test_position)
+        self.first_employee = Employee.objects.create(middle_name="TestMiddle", position=self.test_position)
         self.manager = Employee.objects.create(
             username="manager", middle_name="TestManager", position=self.test_position
         )
@@ -40,11 +40,11 @@ class EmployeeModelTest(TestCase):
         )
 
     def test_employee_middle_name_label(self):
-        field_label = self.employee1._meta.get_field("middle_name").verbose_name
+        field_label = self.first_employee._meta.get_field("middle_name").verbose_name
         self.assertEquals(field_label, "middle name")
 
     def test_employee_position_label(self):
-        field_label = self.employee1._meta.get_field("position").verbose_name
+        field_label = self.first_employee._meta.get_field("position").verbose_name
         self.assertEquals(field_label, "position")
 
     def test_get_subordinates(self):

@@ -30,13 +30,10 @@ class EmployeeCreationForm(BaseEmployeeForm, UserCreationForm):
 
 class EmployeeUpdateForm(BaseEmployeeForm):
     def save(self, commit=True):
-        # Save the form first to get the new manager
         employee = super().save(commit=commit)
 
         if commit:
-            # Get all employees who report to this employee
             subordinates = Employee.objects.filter(manager=employee)
-            # Change their manager to the new manager of this employee
             subordinates.update(manager=employee.manager)
 
         return employee
