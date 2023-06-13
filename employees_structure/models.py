@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django.urls import reverse
 
 
@@ -14,7 +14,6 @@ class Position(models.Model):
 
 
 class Employee(AbstractUser):
-
     middle_name = models.CharField(max_length=63)
     hired = models.DateField(null=True, blank=True)
     position = models.ForeignKey(
@@ -22,14 +21,14 @@ class Employee(AbstractUser):
         on_delete=models.SET_NULL,
         related_name="employees",
         null=True,
-        blank=True
+        blank=True,
     )
     manager = models.ForeignKey(
         to="self",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="employee_set"
+        related_name="employee_set",
     )
     show_subordinates = models.BooleanField(default=True)
 

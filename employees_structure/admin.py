@@ -12,29 +12,25 @@ class EmployeeAdmin(admin.ModelAdmin):
         "middle_name",
         "hired",
         "position",
-        "manager"
+        "manager",
     )
     fieldsets = UserAdmin.fieldsets + (
         (
             "Additional info",
-            {"fields": (
-                "middle_name",
-                "hired",
-                "position",
-                "manager"
-            )}
+            {"fields": ("middle_name", "hired", "position", "manager")},
         ),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
         (
             "Additional info",
-            {"fields": (
-                "middle_name",
-                "hired",
-                "position",
-                "manager"
-            )}
+            {"fields": ("middle_name", "hired", "position", "manager")},
         ),
     )
     list_filter = ["position", "manager", "hired"]
-    search_fields = ["first_name", "last_name", "middle_name", "hired", "position__name"]
+    search_fields = [
+        "first_name",
+        "last_name",
+        "middle_name",
+        "hired",
+        "position__name",
+    ]

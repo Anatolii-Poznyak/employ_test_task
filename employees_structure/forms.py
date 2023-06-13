@@ -1,8 +1,10 @@
-from django.contrib.auth.forms import UserCreationForm
-from .models import Employee
-from django.forms.widgets import DateInput
 from django import forms
-from django_select2.forms import Select2Widget, ModelSelect2Widget, ModelSelect2MultipleWidget
+from django.contrib.auth.forms import UserCreationForm
+from django_select2.forms import (
+    Select2Widget,
+)
+
+from .models import Employee
 
 
 class BaseEmployeeForm(forms.ModelForm):
@@ -45,7 +47,7 @@ class EmployeeSearchForm(forms.Form):
         max_length=63,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search employees ..."})
+        widget=forms.TextInput(attrs={"placeholder": "Search employees ..."}),
     )
 
 
@@ -53,11 +55,9 @@ class TransferSubordinatesForm(forms.Form):
     new_manager = forms.ModelChoiceField(
         queryset=Employee.objects.all(),
         label="Новий менеджер ",
-        widget=Select2Widget(attrs={"data-minimum-input-length": 0})
+        widget=Select2Widget(attrs={"data-minimum-input-length": 0}),
     )
 
     def __init__(self, *args, **kwargs):
         self.employee = kwargs.pop("employee", None)
         super().__init__(*args, **kwargs)
-
-
