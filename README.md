@@ -46,7 +46,7 @@ cp .env.sample .env
   docker-compose up
 ```
 - server will run on 127.0.0.1:8000
-- Create first superuser from terminal to be able to login (enter the container)
+- Create first employee-admin from terminal to be able to login (enter the container)
 ```shell
 docker ps
 docker exec -it <your container name> /bin/bash
@@ -55,7 +55,7 @@ python manage.py createsuperuser
 - run tests -> `python manage.py test`
 - run script for create JSon with data -> `python DB_Seeder.py 1000 5` (first param - count of employees, second - level of inheritance)
 - it will rewrite employee_data.json (by default 50000 records in file)
-- load data from created fixture to your db -> `python manage.py loaddata`
+- load data from created fixture to your db -> `python manage.py loaddata employee_data`
 
 
 ## 🖼 Demo pictures
