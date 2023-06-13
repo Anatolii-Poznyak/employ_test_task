@@ -45,18 +45,13 @@ cp .env.sample .env
   docker-compose up
 ```
 - server will run on 127.0.0.1:8000
-- Create first employee-admin from terminal to be able to login (enter the container)
+- Create first employee-admin from terminal to be able to login (enter the container) and load test data from .json file
 ```shell
 docker ps
 docker exec -it <your container name> /bin/bash
 python manage.py createsuperuser
 python manage.py loaddata employee_json
 ```
-- run tests -> `python manage.py test`
-- run script for create JSon with data -> `python DB_Seeder.py 50000 5` if you want to create your specific test data (first param - count of employees, second - level of inheritance)
-- it will rewrite employee_data.json (by default 1000 records in file)
-- load data from created fixture to your db -> `python manage.py loaddata employee_data`
-
 
 ## 🖼 Demo pictures
 <details>
@@ -104,3 +99,8 @@ python manage.py loaddata employee_json
 
   ![Fixture](static/demo/fixtura.png)
 </details>
+
+## 📚 Additional info
+- For testing: run tests -> `python manage.py test`
+- If you want to create your specific amount of test- data -> run script for create JSon with data -> `python DB_Seeder.py 300 2` (first param - count of employees, second - level of inheritance). It will rewrite employee_data.json (by default 1000 records in file)
+- To load data from created fixture to your db -> `python manage.py loaddata employee_data`
