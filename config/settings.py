@@ -128,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "employees_structure.Employee"
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/employees/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
