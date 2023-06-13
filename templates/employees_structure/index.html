@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Hello, employees!</h1>
+  <p>Welcome!</p>
+
+  {% for item in employees %}
+    {% include "employees_structure/employee.html" with employee=item.employee depth=item.depth %}
+  {% endfor %}
+
+{% endblock %}

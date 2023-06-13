@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Співробітник: {{ employee }}</h1>
+  <p><strong>Посада: </strong>{{ employee.position }}</p>
+  <p><strong>Дата найму: </strong>{{ employee.hired }}</p>
+  <p><strong>Начальник:</strong> {{ employee.manager }}</p>
+  <p><strong>Електронна адреса:</strong> {{ employee.email }}</p>
+  <form method="POST" action="{% url 'employees_structure:transfer-subordinates' employee.id %}">
+    {% csrf_token %}
+    {{ transfer_form }}
+    <div class="form-group form-margin">
+      <button type="submit" class="btn btn-outline-primary">Передати підлеглих</button>
+    </div>
+  </form>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success alert-with-margin" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+body {
+    margin-top: 20px;
+}
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+
+.icon-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.alert-with-margin {
+    margin-top: 10px;
+}
+.form-margin {
+    margin-top: 10px;
+}
+
+/* ######################################################### */
+

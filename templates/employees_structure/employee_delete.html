@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Delete Employee</h1>
+  <p>Are you sure you want to delete employee: {{ employee }}</p>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete" class="btn btn-outline-danger">
+    <a href="javascript:history.back()" class="btn btn-outline-dark">Cancel</a>
+  </form>
+{% endblock %}
