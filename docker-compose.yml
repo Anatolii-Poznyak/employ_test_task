@@ -22,3 +22,10 @@ services:
         - "5433:5432"
     env_file:
         - .env
+
+  wait-for-app:
+    image: atkrad/wait4x
+    depends_on:
+      - app
+    command: tcp web:8000 -t 150s -i 15s
+
