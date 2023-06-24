@@ -40,10 +40,12 @@ class Command(BaseCommand):
         parser.add_argument("employees", type=int)
         parser.add_argument("subordinates", type=int)
 
-    def print_success_message(self, number_of_employees):
+    @staticmethod
+    def print_success_message(number_of_employees):
         print(f"\033[92m  Creation of {number_of_employees} employees was successful!\033[0m")
 
-    def create_positions(self, data):
+    @staticmethod
+    def create_positions(data):
         for i, position_name in enumerate(positions_list):
             position_record = {
                 "model": "employees_structure.position",
@@ -55,11 +57,13 @@ class Command(BaseCommand):
             data.append(position_record)
         return data
 
-    def write_to_json(self, data):
+    @staticmethod
+    def write_to_json(data):
         with open("/app/employee_data.json", "w") as json_file:
             json.dump(data, json_file, indent=4, separators=(",", ": "))
 
-    def create_employees(self, number_of_employees, number_of_subordinates, data):
+    @staticmethod
+    def create_employees(number_of_employees, number_of_subordinates, data):
         root_manager_pk = 1
         for i in range(1, number_of_employees):
             if i % number_of_subordinates == 0:

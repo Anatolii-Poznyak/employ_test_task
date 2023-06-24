@@ -49,10 +49,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap4",
     "django_select2",
-    "django_unicorn",
     "employees_structure",
-    "mptt",
-
 ]
 
 MIDDLEWARE = [
