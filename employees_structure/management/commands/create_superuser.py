@@ -8,10 +8,12 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if not Employee.objects.filter(username=os.environ["ADMIN_USERNAME"]).exists():
             Employee.objects.create_superuser(
-                os.environ["ADMIN_USERNAME"],
-                os.environ["ADMIN_PASSWORD"],
-                os.environ["ADMIN_EMAIL"],
-                os.environ["ADMIN_FIRST_NAME"],
-                os.environ["ADMIN_LAST_NAME"],
-                os.environ["ADMIN_MIDDLE_NAME"],
+                username=os.environ["ADMIN_USERNAME"],
+                password=os.environ["ADMIN_PASSWORD"],
+                email=os.environ["ADMIN_EMAIL"],
+                first_name=os.environ["ADMIN_FIRST_NAME"],
+                last_name=os.environ["ADMIN_LAST_NAME"],
+                middle_name=os.environ["ADMIN_MIDDLE_NAME"],
             )
+
+        print("\033[92mSuperuser {} was created successfully!\033[0m".format(os.environ["ADMIN_USERNAME"]))
