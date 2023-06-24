@@ -34,4 +34,3 @@ class Migration(migrations.Migration):
         migrations.RunPython(create_superuser),
         migrations.RunPython(load_to_db),
     ]
-
