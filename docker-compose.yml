@@ -9,7 +9,6 @@ services:
     command: >
         sh -c "python manage.py wait_for_db &&
                 python manage.py migrate &&
-                  python manage.py create_superuser &&
                     python manage.py runserver 0.0.0.0:8000"
     env_file:
         - .env
@@ -22,23 +21,3 @@ services:
         - "5433:5432"
     env_file:
         - .env
-
-  wait-for-app:
-    image: atkrad/wait4x
-    depends_on:
-      - app
-    command: tcp app:8000 -t 150s -i 15s
-
-  create-and-load-data:
-    build: .
-    env_file:
-      - .env
-    environment:
-      - DJANGO_SETTINGS_MODULE=config.settings
-    network_mode: "service:app"
-    command: >
-        sh -c "python db_seeder.py 1000 3 &&
-                python manage.py loaddata employee_data"
-    depends_on:
-      wait-for-app:
-        condition: service_completed_successfully
