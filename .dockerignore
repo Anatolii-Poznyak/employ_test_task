@@ -11,3 +11,4 @@ venv/
 media
 .git
 *docker*
+employee_data.json
