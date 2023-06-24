@@ -36,22 +36,17 @@ source venv/bin/activate
 cp .env.sample .env
 ```
 
-- If you want to use docker - set POSTGRES_HOST=db 
-
+- If you want to use Docker, set `POSTGRES_HOST=db` 
+- Also set your superuser credentials in `.env`
+- 
 ## 🐳 Run with DOCKER
 - DOCKER should be installed
 
 ```shell
   docker-compose up
 ```
-- server will run on 127.0.0.1:8000
-- Create first employee-admin from terminal to be able to login (enter the container) and load test data from .json file
-```shell
-docker ps
-docker exec -it <your container name> /bin/bash
-python manage.py createsuperuser
-python manage.py loaddata employee_json
-```
+- The server will run on 127.0.0.1:8000
+- superuser and fake_data will be created and loaded automatically via custom migrations 
 
 ## 🖼 Demo pictures
 <details>
@@ -101,6 +96,11 @@ python manage.py loaddata employee_json
 </details>
 
 ## 📚 Additional info
+- To enter the container
+```shell
+docker ps
+docker exec -it <your container name> /bin/bash
+```
 - For testing: run tests -> `python manage.py test`
-- If you want to create your specific amount of test- data -> run script for create JSon with data -> `python db_seeder.py 300 2` (first param - count of employees, second - level of inheritance). It will rewrite employee_data.json (by default 1000 records in file)
-- To load data from created fixture to your db -> `python manage.py loaddata employee_data`
+- If you want to create your specific amount of test data -> run the following command to create a JSon file (`employee_data.json`) with data -> `python manage.py db_seeder 1500 5` (first param = count of employees, second = level of inheritance). It will overwrite employee_data.json (by default - 1000 records in file with 3 levels of hierarchy)
+- To load data from created fixture to your DB -> `python manage.py loaddata employee_data`
