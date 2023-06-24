@@ -15,5 +15,4 @@ class Command(BaseCommand):
                 last_name=os.environ["ADMIN_LAST_NAME"],
                 middle_name=os.environ["ADMIN_MIDDLE_NAME"],
             )
-
-        print("\033[92mSuperuser {} was created successfully!\033[0m".format(os.environ["ADMIN_USERNAME"]))
+            print("\033[92mSuperuser {} was created successfully!\033[0m".format(os.environ["ADMIN_USERNAME"]))
