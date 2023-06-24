@@ -12,6 +12,16 @@ import json
 import random
 from faker import Faker
 
+
+import os
+import django
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+django.setup()
+
+from employees_structure.models import Employee
+
+
 faker = Faker()
 
 positions_list = [
@@ -85,6 +95,11 @@ def main():
 
     number_of_employees = int(sys.argv[1])
     number_of_subordinates = int(sys.argv[2])
+
+    if Employee.objects.count() > 1:
+        print("\033[93mDatabase already has more than one record. Skipping seeding.\033[0m")
+        sys.exit()
+
     data = create_positions(data)
     data = create_employees(number_of_employees, number_of_subordinates, data)
     write_to_json(data)

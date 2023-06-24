@@ -29,3 +29,16 @@ services:
       - app
     command: tcp app:8000 -t 150s -i 15s
 
+  create-and-load-data:
+    build: .
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings
+    network_mode: "service:app"
+    command: >
+        sh -c "python db_seeder.py 1000 3 &&
+                python manage.py loaddata employee_data"
+    depends_on:
+      wait-for-app:
+        condition: service_completed_successfully
