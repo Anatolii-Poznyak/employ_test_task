@@ -30,6 +30,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
+    "ec2-3-126-84-102.eu-central-1.compute.amazonaws.com"
 ]
 
 INTERNAL_IPS = [

@@ -98,8 +98,6 @@ cp .env.sample .env
 ## 📚 Additional info
 - To enter the container => `docker compose exec app sh` or `docker exec -it <your container name> /bin/bash`
 - Containers list => `docker ps`
-
-
 - For testing: run tests -> `python manage.py test`
 - If you want to create your specific amount of test data -> run the following command to create a JSon file (`employee_data.json`) with data -> `python manage.py db_seeder 1500 5` (first param = count of employees, second = level of inheritance). It will overwrite employee_data.json (by default - 1000 records in file with 3 levels of hierarchy)
 - To load data from created fixture to your DB -> `python manage.py loaddata employee_data`
